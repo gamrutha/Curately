@@ -7,6 +7,27 @@ heart") and it returns five movies, each with a short explanation of why it fits
 It is built as three agents in a row, uses Claude for the language steps, and a
 local vector database of about 9,700 MovieLens movies for the search.
 
+## What this demonstrates
+
+- **Structured extraction that doesn't guess.** Agent 1 turns free text into
+  fixed fields and says there is not enough to go on instead of guessing.
+- **Retrieval separate from generation.** Agent 2 retrieves the movies; Agent 3
+  only writes about what was retrieved.
+- **Grounded explanations.** Explanations may use only retrieved data, and code
+  checks reject invented languages, nationalities and false "popular pick" labels.
+- **Evaluation with stated limits.** Agents 1 and 2 are evaluated against a
+  golden set, and the limitations are written down below.
+
+## Screenshots
+
+<!-- Add the image files to images/ -->
+
+![Search results](images/search-results.png)
+
+![How this was decided](images/how-this-was-decided.png)
+
+![Not enough to go on](images/not-enough-detail.png)
+
 ## How it works
 
 1. **Agent 1 – understand the request** (`agent1.py`). Claude turns your message
@@ -76,6 +97,8 @@ You need Python 3.12, an Anthropic API key and a free TMDB API key
 
 ## Run
 
+Each search makes two Claude API calls (Agents 1 and 3).
+
 The app (opens at http://localhost:8501, on your machine only):
 
 ```
@@ -100,7 +123,13 @@ python eval_agent1.py   # Agent 1's extraction vs the golden answers
 python eval_agent2.py   # Agent 1 -> Agent 2, and Agent 2 alone on the golden answers
 ```
 
+The golden set is only 10 queries, so these results are indicative, not
+statistically strong. Agent 1 and Agent 3 are LLM calls and can vary between runs.
+
 ### Latest results
+
+Earlier iterations: after two prompt fixes, Agent 1 accuracy rose from 78.6% to
+85.7% and hallucination fell from 2.0% to 0%.
 
 **Agent 1** (`eval_agent1.py`)
 
