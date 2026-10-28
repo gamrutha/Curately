@@ -1,0 +1,24 @@
+# Secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Downloaded data (MovieLens, IMDb ratings, TMDB descriptions). Their licences
+# don't allow redistribution; see README.md for how to download them.
+data/
+
+# Chroma vector database (rebuilt locally with `python agent2.py --build`)
+chroma_db/
+
+# Local backup copies of agent files
+*backup*.py
+
+# Local scripts not part of the published project
+moviedataset.py
+curately/
+
+# OS
+.DS_Store
