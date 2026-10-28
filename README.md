@@ -128,9 +128,6 @@ statistically strong. Agent 1 and Agent 3 are LLM calls and can vary between run
 
 ### Latest results
 
-Earlier iterations: after two prompt fixes, Agent 1 accuracy rose from 78.6% to
-85.7% and hallucination fell from 2.0% to 0%.
-
 **Agent 1** (`eval_agent1.py`)
 
 | Metric | Result |
@@ -139,6 +136,9 @@ Earlier iterations: after two prompt fixes, Agent 1 accuracy rose from 78.6% to
 | Accuracy | 100.0% (12/12 mentioned fields correct) |
 | Hallucination rate | 0.0% (0/40 fields filled that should be empty) |
 | Precision / recall / F1 | 1.000 / 1.000 / 1.000 |
+
+Earlier iterations: after prompt fixes, Agent 1 accuracy rose from 78.6% to
+85.7% and hallucination fell from 2.0% to 0%.
 
 **Agent 2** (`eval_agent2.py`)
 
