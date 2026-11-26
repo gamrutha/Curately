@@ -1,11 +1,10 @@
 # Curately
 
-Curately is a small movie recommender you run on your own machine. You type what
-you feel like watching ("something funny but not too silly, maybe with some
-heart") and it returns five movies, each with a short explanation of why it fits.
+Curately is an AI-powered movie recommendation product that helps users discover movies based on natural-language preferences—not just genre or keyword searches.
 
-It is built as three agents in a row, uses Claude for the language steps, and a
-local vector database of about 9,700 MovieLens movies for the search.
+A user can describe what they feel like watching ("something funny but not too silly, maybe with some heart"), and Curately returns five recommendations with explanations grounded in retrieved movie data.
+
+The system uses three specialized agents, Claude for language understanding and generation, and a local vector database containing approximately 9,700 movies. Its design separates preference extraction, retrieval, and explanation to improve relevance, control hallucinations, and make each stage independently evaluable.
 
 ## What this demonstrates
 
@@ -17,6 +16,14 @@ local vector database of about 9,700 MovieLens movies for the search.
   checks reject invented languages, nationalities and false "popular pick" labels.
 - **Evaluation with stated limits.** Agents 1 and 2 are evaluated against a
   golden set, and the limitations are written down below.
+
+## Product decisions and trade-offs
+
+- **Structured extraction before retrieval:** Converting natural-language requests into explicit fields makes user intent easier to interpret, validate, and evaluate.
+- **Hard filters for exclusions:** Preferences such as "no horror" are treated as constraints rather than soft relevance signals.
+- **Retrieval separated from explanation:** The recommendation agent selects movies independently; the explanation agent cannot introduce new recommendations.
+- **Graceful fallback:** When fewer than five suitable movies match, popular alternatives fill the remaining slots and are identified as fallback recommendations.
+- **Evaluation before optimization:** A golden dataset helps identify extraction and retrieval weaknesses before expanding functionality.
 
 ## Screenshots
 
@@ -115,6 +122,18 @@ python agent1.py "definitely not a horror movie, something light"  # Agent 1 onl
 
 ## Evaluations
 
+Evaluation snapshot
+
+Agent 1: 100% accuracy on the current 10-query golden dataset, with zero hallucinated fields in the latest evaluation.
+
+Agent 2: Passed all defined structural, exclusion, fallback, and confidence checks across the 10-query evaluation set.
+
+Known quality gap: Only 47% of retrieved results carried the requested mood tag, highlighting an opportunity to improve semantic relevance.
+
+Evaluation maturity: Agent 3 currently has manual review rather than automated evaluation.
+
+These results are indicative, not statistically conclusive, because the golden dataset contains only 10 queries.
+
 Both evaluations use the 10 queries in `golden_dataset.py` and call the
 Anthropic API.
 
@@ -172,6 +191,13 @@ by hand.
   popular picks.
 - **No search by actor or director.**
 - Places ("set in Paris") are ignored.
+
+## Potential next steps
+
+1. **Improve recommendation relevance:** Expand mood and semantic evaluation coverage and address the low mood-tag match rate.
+2. **Strengthen explanation quality:** Introduce automated grounding checks and evaluation for unsupported details.
+3. **Expand preference understanding:** Support topics, actors, directors, and locations as additional search dimensions.
+4. **Improve production readiness:** Add latency, API cost, failure-rate, and recommendation-quality monitoring.
 
 ## Data and licences
 
