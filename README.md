@@ -120,7 +120,7 @@ python agent2.py --text "Genre: comedy. Mood: heartfelt."       # Agent 2 only
 python agent1.py "definitely not a horror movie, something light"  # Agent 1 only
 ```
 
-## Evaluations
+### Evaluations
 
 Evaluation snapshot
 
@@ -142,8 +142,7 @@ python eval_agent1.py   # Agent 1's extraction vs the golden answers
 python eval_agent2.py   # Agent 1 -> Agent 2, and Agent 2 alone on the golden answers
 ```
 
-The golden set is only 10 queries, so these results are indicative, not
-statistically strong. Agent 1 and Agent 3 are LLM calls and can vary between runs.
+Agent 1 and Agent 3 use LLM calls, so their outputs can vary between runs.
 
 ### Latest results
 
