@@ -57,6 +57,15 @@ The system uses three specialized agents, Claude for language understanding and 
 
 `app.py` is a Streamlit page that runs all three agents for each search.
 
+## Tech stack
+
+- **Language models:** Claude through the Anthropic API for extracting preferences (Agent 1) and writing explanations (Agent 3)
+- **Retrieval:** ChromaDB, a local vector database, with `all-MiniLM-L6-v2` embeddings
+- **Data:** MovieLens (about 9,700 movies), TMDB plot summaries and original languages, IMDb ratings and popularity
+- **Interface:** Streamlit
+- **Language:** Python 3.12
+- **Build tool:** Claude Code
+
 ## Setup
 
 You need Python 3.12, an Anthropic API key and a free TMDB API key
